@@ -20,8 +20,11 @@ const userStore = useUserStore();
 const router = useRouter();
 //获取账号number查询后台账户信息并储存
 onMounted(() => {
+  console.log("Component is mounted!");
   userStore.getUserInfo();
+  // 在这里执行一些初始化的逻辑
 });
+
 //退出账号
 const handleCommand = (command) => {
   //判断指令
@@ -71,17 +74,17 @@ const handleCommand = (command) => {
         text-color="#fff"
         router
       >
-        <el-menu-item index="/article/category">
+        <el-menu-item index="/customer" v-if="userStore.userInfo.isAdmin == 0">
           <el-icon>
-            <Management />
+            <UserFilled />
           </el-icon>
-          <span>文章分类</span>
+          <span>客户信息详情</span>
         </el-menu-item>
-        <el-menu-item index="/article/manage">
+        <el-menu-item index="/deposit" v-if="userStore.userInfo.isAdmin == 0">
           <el-icon>
             <Promotion />
           </el-icon>
-          <span>文章管理</span>
+          <span>客户存款</span>
         </el-menu-item>
         <el-sub-menu>
           <template #title>

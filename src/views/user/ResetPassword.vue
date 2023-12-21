@@ -42,7 +42,7 @@ const submitForm = () => {
       //提交更改密码请求
       await userStore.updatePwd(ruleForm);
     } else {
-      console.log("error submit!");
+      console.log("提交错误!");
     }
   });
 };
@@ -62,16 +62,30 @@ const resetForm = () => {
     class="demo-ruleForm"
   >
     <el-form-item label="新密码" prop="pass">
-      <el-input v-model="ruleForm.pass" type="password" autocomplete="off" />
+      <el-input
+        v-model="ruleForm.pass"
+        type="password"
+        autocomplete="off"
+        style="width: 300px"
+      />
     </el-form-item>
     <el-form-item label="确认新密码" prop="checkPass">
       <el-input
         v-model="ruleForm.checkPass"
         type="password"
         autocomplete="off"
+        style="width: 300px"
       />
-      <el-button type="primary" @click="submitForm">Submit</el-button>
-      <el-button @click="resetForm">Reset</el-button>
     </el-form-item>
+
+    <el-row :gutter="20">
+      <el-col :span="6" :offset="6">
+        <el-button type="primary" @click="submitForm" :offset="6"
+          >提交</el-button
+        >
+        <el-button @click="resetForm" :offset="6">清空</el-button>
+      </el-col>
+    </el-row>
   </el-form>
 </template>
+<style scoped></style>

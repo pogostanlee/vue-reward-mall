@@ -5,6 +5,10 @@ import Login from "@/views/Login.vue";
 import LayoutVue from "@/views/Layout.vue";
 //修改密码页面
 import ResetPassword from "@/views/user/ResetPassword.vue";
+//客户信息页面
+import Customer from "@/views/customer/customer.vue";
+//存款登录页面
+import Deposit from "@/views/deposit/deposit.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -24,11 +28,22 @@ const router = createRouter({
       path: "/layout/:number",
       name: "layout",
       component: LayoutVue,
+      redirect: "/customer",
       children: [
         {
           path: "/user/resetPassword",
           name: "resetPassword",
           component: ResetPassword,
+        },
+        {
+          path: "/customer",
+          name: "customer",
+          component: Customer,
+        },
+        {
+          path: "/deposit",
+          name: "deposit",
+          component: Deposit,
         },
       ],
     },
