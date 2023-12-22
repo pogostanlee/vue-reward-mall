@@ -15,3 +15,11 @@ export const addDepositAPI = (params) => {
   }
   return request.post("/deposit/addDeposit", queryparams);
 };
+//删除存款记录
+export const deleteIdAPI = (params) => {
+  const queryparams = new URLSearchParams();
+  for (let key in params) {
+    queryparams.append(key, params[key]);
+  }
+  return request.post("/deposit/deleteId", queryparams);
+};

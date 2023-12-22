@@ -2,7 +2,6 @@ import { ref } from "vue";
 import { defineStore } from "pinia";
 import { customerListAPI, addCustomerAPI } from "@/apis/customer";
 
-
 export const useCustomerStore = defineStore(
   "customer",
   () => {
@@ -12,6 +11,12 @@ export const useCustomerStore = defineStore(
     const customerList = async (formData) => {
       let res = await customerListAPI(formData);
       customerListInfo.value = res;
+      if (res.total === 0) {
+        ElMessage({
+          message: "未查到信息，请核对查询条件",
+          type: "warning",
+        });
+      }
     };
     //添加客户
     const addCustomer = async (formData) => {

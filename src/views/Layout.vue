@@ -1,9 +1,7 @@
 <script setup>
 import {
-  Management,
-  Promotion,
+  Money,
   UserFilled,
-  User,
   Crop,
   EditPen,
   SwitchButton,
@@ -82,11 +80,20 @@ const handleCommand = (command) => {
         </el-menu-item>
         <el-menu-item index="/deposit" v-if="userStore.userInfo.isAdmin == 0">
           <el-icon>
-            <Promotion />
+            <Money />
           </el-icon>
           <span>客户存款</span>
         </el-menu-item>
-        <el-sub-menu>
+        <el-menu-item
+          index="/productLogin"
+          v-if="userStore.userInfo.isAdmin == 0"
+        >
+          <el-icon>
+            <Crop />
+          </el-icon>
+          <span>奖品兑换</span>
+        </el-menu-item>
+        <!-- <el-sub-menu>
           <template #title>
             <el-icon>
               <UserFilled />
@@ -111,7 +118,7 @@ const handleCommand = (command) => {
             </el-icon>
             <span>重置密码</span>
           </el-menu-item>
-        </el-sub-menu>
+        </el-sub-menu> -->
       </el-menu>
     </el-aside>
     <!-- 右侧主区域 -->

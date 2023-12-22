@@ -1,6 +1,8 @@
 <script setup>
+import { Delete } from "@element-plus/icons-vue";
 import { ref } from "vue";
 import { useDepositStore } from "@/stores/depositStore";
+import { debounce } from "lodash";
 const depositStore = useDepositStore();
 //提交身份证数据
 const formInline = ref({
@@ -13,7 +15,7 @@ const idNumberRef = ref();
 //存款记录list
 const listInfo = ref();
 //查询方法
-function onSubmit() {
+const onSubmit = () => {
   idNumberRef.value.validate(async (valid) => {
     if (valid) {
       //查询所有存款记录
@@ -21,7 +23,8 @@ function onSubmit() {
       listInfo.value = depositStore.depositListInfo.items;
     }
   });
-}
+};
+
 //身份证校验
 const validateIdNumber = (rule, value, callback) => {
   const idNumberReg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
@@ -48,6 +51,24 @@ const handleCurrentChange = async (num) => {
   formInline.value.currentPage = num;
   await depositStore.depositList(formInline.value);
   listInfo.value = depositStore.depositListInfo.items;
+};
+//删除存款记录
+const deleteByid = (row) => {
+  ElMessageBox.confirm("积分已被兑换则无法删除此条数据", "Warning", {
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning",
+  })
+    .then(async () => {
+      await depositStore.deleteId(row);
+      onSubmit();
+    })
+    .catch(() => {
+      ElMessage({
+        type: "info",
+        message: "用户取消",
+      });
+    });
 };
 //抽屉页
 //抽屉控件
@@ -77,17 +98,20 @@ function cancelClick() {
   drawer.value = false;
   drawerFrom.value = {};
 }
-function confirmClick() {
+
+const confirmClick = debounce(() => {
   //添加新用户
   //通过实例调用方法
   drawerRef.value.validate(async (valid) => {
     if (valid) {
+      drawer.value = false;
       //增加新存款
       await depositStore.addDeposit(drawerFrom.value);
-      drawer.value = false;
+      drawerFrom.value = {};
+      onSubmit();
     }
   });
-}
+}, 1000);
 </script>
 <template>
   <el-form
@@ -118,6 +142,16 @@ function confirmClick() {
     <el-table-column prop="maturityDate" label="到期日期" width="150" />
     <el-table-column prop="getPoints" label="获得积分" width="150" />
     <el-table-column prop="activity" label="活动内容" width="150" />
+    <el-table-column fixed="right" label="操作" width="60">
+      <template #default="{ row }">
+        <el-button
+          type="danger"
+          :icon="Delete"
+          circle
+          @click="deleteByid(row)"
+        />
+      </template>
+    </el-table-column>
   </el-table>
   <!-- 分页 -->
   <div class="demo-pagination-block">

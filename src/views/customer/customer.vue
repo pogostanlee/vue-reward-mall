@@ -2,7 +2,7 @@
 import { onMounted, ref } from "vue";
 import { useCustomerStore } from "@/stores/customerStore";
 const customerStore = useCustomerStore();
-const form = ref({
+const defaultForm = {
   idNumber: "",
   name: "",
   phone: "",
@@ -11,7 +11,9 @@ const form = ref({
   endNumber: "",
   currentPage: "1",
   pageSize: "10",
-});
+};
+
+const form = ref({ ...defaultForm });
 //表格数据初始化
 const tableData = ref();
 //分页插件调用方法
@@ -73,6 +75,10 @@ const onSubmit = async () => {
   await customerStore.customerList(form.value);
   tableData.value = customerStore.customerListInfo.items;
 };
+//清空表格
+const cleanFrom = () => {
+  form.value = { ...defaultForm };
+};
 //页面加载调用
 onMounted(async () => {
   await customerStore.customerList(form.value);
@@ -107,7 +113,7 @@ function confirmClick() {
 </script>
 
 <template>
-  <el-form :model="form" :rules="rules" :inline="true" class="demo-form-inline" >
+  <el-form :model="form" :rules="rules" :inline="true" class="demo-form-inline">
     <el-row>
       <el-form-item label="身份证号" prop="idNumber">
         <el-input v-model="form.idNumber" placeholder="身份证号" clearable />
@@ -142,6 +148,7 @@ function confirmClick() {
     <el-row>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询信息</el-button>
+        <el-button type="warning" @click="cleanFrom">清空信息</el-button>
         <el-button type="success" @click="drawer = true">新建客户</el-button>
       </el-form-item>
     </el-row>
@@ -160,7 +167,7 @@ function confirmClick() {
   <div class="demo-pagination-block">
     <el-pagination
       v-model:current-page="form.currentPage"
-      v-model:page-size="form.pageSize" 
+      v-model:page-size="form.pageSize"
       :page-sizes="[10, 20, 50]"
       :small="small"
       :disabled="disabled"

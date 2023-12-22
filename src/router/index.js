@@ -7,8 +7,12 @@ import LayoutVue from "@/views/Layout.vue";
 import ResetPassword from "@/views/user/ResetPassword.vue";
 //客户信息页面
 import Customer from "@/views/customer/customer.vue";
-//存款登录页面
+//存款页面
 import Deposit from "@/views/deposit/deposit.vue";
+//奖品兑换登录页
+import ProductLogin from "@/views/product/productLogin.vue";
+//奖品兑换页面
+import Product from "@/views/product/product.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -44,6 +48,16 @@ const router = createRouter({
           path: "/deposit",
           name: "deposit",
           component: Deposit,
+        },
+        {
+          path: "/productLogin",
+          name: "productLogin",
+          component: ProductLogin,
+        },
+        {
+          path: "/product",
+          name: "product",
+          component: Product,
         },
       ],
     },
