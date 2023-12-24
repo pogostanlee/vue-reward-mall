@@ -84,41 +84,26 @@ const handleCommand = (command) => {
           </el-icon>
           <span>客户存款</span>
         </el-menu-item>
-        <el-menu-item
-          index="/productLogin"
-          v-if="userStore.userInfo.isAdmin == 0"
-        >
-          <el-icon>
-            <Crop />
-          </el-icon>
-          <span>奖品兑换</span>
-        </el-menu-item>
-        <!-- <el-sub-menu>
+        <el-sub-menu v-if="userStore.userInfo.isAdmin == 0">
           <template #title>
-            <el-icon>
-              <UserFilled />
-            </el-icon>
-            <span>个人中心</span>
-          </template>
-          <el-menu-item index="/user/info">
-            <el-icon>
-              <User />
-            </el-icon>
-            <span>基本资料</span>
-          </el-menu-item>
-          <el-menu-item index="/user/avatar">
             <el-icon>
               <Crop />
             </el-icon>
-            <span>更换头像</span>
-          </el-menu-item>
-          <el-menu-item index="/user/resetPassword">
+            <span>礼品</span>
+          </template>
+          <el-menu-item index="/productLogin">
             <el-icon>
-              <EditPen />
+              <Crop />
             </el-icon>
-            <span>重置密码</span>
+            <span>礼品兑换</span>
           </el-menu-item>
-        </el-sub-menu> -->
+          <el-menu-item index="/productLogin">
+            <el-icon>
+              <Crop />
+            </el-icon>
+            <span>兑换记录</span>
+          </el-menu-item>
+        </el-sub-menu>
       </el-menu>
     </el-aside>
     <!-- 右侧主区域 -->
