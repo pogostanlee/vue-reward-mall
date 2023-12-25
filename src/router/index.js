@@ -13,6 +13,10 @@ import Deposit from "@/views/deposit/deposit.vue";
 import ProductLogin from "@/views/product/productLogin.vue";
 //奖品兑换页面
 import Product from "@/views/product/product.vue";
+//奖品兑换记录详情页
+import ProductDetail from "@/views/product/productDetail.vue";
+//商品库存页面
+import ProductInventory from "@/views/product/productInventory.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -58,6 +62,16 @@ const router = createRouter({
           path: "/product",
           name: "product",
           component: Product,
+        },
+        {
+          path: "/ProductDetail",
+          name: "ProductDetail",
+          component: ProductDetail,
+        },
+        {
+          path: "/productInventory",
+          name: "productInventory",
+          component: ProductInventory,
         },
       ],
     },

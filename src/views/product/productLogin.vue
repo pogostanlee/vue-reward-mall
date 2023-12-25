@@ -1,7 +1,7 @@
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useProductStore } from "@/stores/productStore";
-
+import router from "@/router";
 const productStore = useProductStore();
 const idNumberRef = ref();
 const formInline = ref({
@@ -26,6 +26,12 @@ const validateIdNumber = (rule, value, callback) => {
 const rules = {
   idNumber: [{ validator: validateIdNumber, trigger: "blur" }],
 };
+onMounted(() => {
+  //如果用户已经登录就跳转到商品列表页面
+  if (productStore.customerInfo.idNumber) {
+    router.push("/product");
+  }
+});
 </script>
 <template>
   <div class="centered">

@@ -11,10 +11,7 @@ const form = ref({
   num: "",
 });
 const tableForm = ref([]);
-// const exchangeForm = ref({
-//   customerId: "",
-//   products: "",
-// });
+//选择礼品数量
 const handleChange = (number) => {
   form.value.num = number;
 };
@@ -62,10 +59,8 @@ const submitProducts = async () => {
     ElMessage.error("积分不足");
     return;
   }
-  //将tableForm中的数据封装到exchangeForm中
-  // exchangeForm.value.customerId = productStore.customerInfo.idNumber;
-  // exchangeForm.value.products = JSON.stringify(tableForm.value);
-
+  //清空登录信息
+  productStore.customerInfo = {};
   //兑换礼品
   await productStore.exchange(tableForm.value);
 };

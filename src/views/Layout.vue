@@ -97,11 +97,17 @@ const handleCommand = (command) => {
             </el-icon>
             <span>礼品兑换</span>
           </el-menu-item>
-          <el-menu-item index="/productLogin">
+          <el-menu-item index="/ProductDetail">
             <el-icon>
               <Crop />
             </el-icon>
             <span>兑换记录</span>
+          </el-menu-item>
+          <el-menu-item index="/productInventory">
+            <el-icon>
+              <Crop />
+            </el-icon>
+            <span>商品库存</span>
           </el-menu-item>
         </el-sub-menu>
       </el-menu>
