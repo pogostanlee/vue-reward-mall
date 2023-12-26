@@ -51,3 +51,11 @@ export const addInventoryAPI = (params) => {
   }
   return request.post("/admin/addInventory", queryparams);
 };
+//导出excel
+export const exportExcelAPI = () => {
+  return request({
+    url: "/admin/exportCustomer",
+    method: "get",
+    responseType: "blob",
+  });
+};

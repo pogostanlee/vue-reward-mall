@@ -8,6 +8,7 @@ import {
   addProductAPI,
   adminGetInventoryAPI,
   addInventoryAPI,
+  exportExcelAPI,
 } from "@/apis/admin";
 export const useAdminStore = defineStore(
   "admin",
@@ -115,6 +116,10 @@ export const useAdminStore = defineStore(
         });
       }
     };
+    //导出excel
+    const exportExcel = async () => {
+      await exportExcelAPI();
+    };
     return {
       customerListInfo,
       customerList,
@@ -127,6 +132,7 @@ export const useAdminStore = defineStore(
       getInventory,
       allInventoryInfo,
       addInventory,
+      exportExcel,
     };
   },
   { persist: true }

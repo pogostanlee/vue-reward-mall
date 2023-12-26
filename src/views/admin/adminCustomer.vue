@@ -84,6 +84,11 @@ const onSubmit = async () => {
 const cleanFrom = () => {
   form.value = { ...defaultForm };
 };
+//导出excel
+const exportCustomer = async () => {
+  //导出excel
+  await customerStore.exportExcel();
+};
 //页面加载调用
 onMounted(async () => {
   //获取支行列表
@@ -141,6 +146,7 @@ onMounted(async () => {
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询信息</el-button>
         <el-button type="warning" @click="cleanFrom">清空信息</el-button>
+        <el-button type="success" @click="exportCustomer">全量导出</el-button>
       </el-form-item>
     </el-row>
   </el-form>
