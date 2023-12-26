@@ -110,6 +110,33 @@ const handleCommand = (command) => {
             <span>商品库存</span>
           </el-menu-item>
         </el-sub-menu>
+        <el-menu-item
+          index="/adminCustomer"
+          v-if="userStore.userInfo.isAdmin == 0"
+        >
+          <el-icon>
+            <Money />
+          </el-icon>
+          <span>查询用户详情</span>
+        </el-menu-item>
+        <el-menu-item
+          index="/adminProduct"
+          v-if="userStore.userInfo.isAdmin == 0"
+        >
+          <el-icon>
+            <Money />
+          </el-icon>
+          <span>礼品管理</span>
+        </el-menu-item>
+        <el-menu-item
+          index="/adminInventory"
+          v-if="userStore.userInfo.isAdmin == 0"
+        >
+          <el-icon>
+            <Money />
+          </el-icon>
+          <span>礼品库存</span>
+        </el-menu-item>
       </el-menu>
     </el-aside>
     <!-- 右侧主区域 -->

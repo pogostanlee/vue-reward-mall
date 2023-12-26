@@ -17,6 +17,12 @@ import Product from "@/views/product/product.vue";
 import ProductDetail from "@/views/product/productDetail.vue";
 //商品库存页面
 import ProductInventory from "@/views/product/productInventory.vue";
+//后台客户信息页面
+import AdminCustomer from "@/views/admin/adminCustomer.vue";
+//后台礼品管理页面
+import AdminProduct from "@/views/admin/adminProduct.vue";
+//后台礼品库存页面
+import AdminInventory from "@/views/admin/adminInventory.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -72,6 +78,21 @@ const router = createRouter({
           path: "/productInventory",
           name: "productInventory",
           component: ProductInventory,
+        },
+        {
+          path: "/adminCustomer",
+          name: "adminCustomer",
+          component: AdminCustomer,
+        },
+        {
+          path: "/adminProduct",
+          name: "adminProduct",
+          component: AdminProduct,
+        },
+        {
+          path: "/adminInventory",
+          name: "adminInventory",
+          component: AdminInventory,
         },
       ],
     },

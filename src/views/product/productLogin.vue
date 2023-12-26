@@ -26,12 +26,12 @@ const validateIdNumber = (rule, value, callback) => {
 const rules = {
   idNumber: [{ validator: validateIdNumber, trigger: "blur" }],
 };
-onMounted(() => {
-  //如果用户已经登录就跳转到商品列表页面
-  if (productStore.customerInfo.idNumber) {
-    router.push("/product");
-  }
-});
+// onMounted(() => {
+//   //如果用户已经登录就跳转到商品列表页面
+//   if (productStore.customerInfo.idNumber) {
+//     router.push("/product");
+//   }
+// });
 </script>
 <template>
   <div class="centered">
