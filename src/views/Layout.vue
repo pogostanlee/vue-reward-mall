@@ -112,7 +112,7 @@ const handleCommand = (command) => {
         </el-sub-menu>
         <el-menu-item
           index="/adminCustomer"
-          v-if="userStore.userInfo.isAdmin == 0"
+          v-if="userStore.userInfo.isAdmin == 1"
         >
           <el-icon>
             <Money />
@@ -121,7 +121,7 @@ const handleCommand = (command) => {
         </el-menu-item>
         <el-menu-item
           index="/adminProduct"
-          v-if="userStore.userInfo.isAdmin == 0"
+          v-if="userStore.userInfo.isAdmin == 1"
         >
           <el-icon>
             <Money />
@@ -130,7 +130,7 @@ const handleCommand = (command) => {
         </el-menu-item>
         <el-menu-item
           index="/adminInventory"
-          v-if="userStore.userInfo.isAdmin == 0"
+          v-if="userStore.userInfo.isAdmin == 1"
         >
           <el-icon>
             <Money />
