@@ -1,4 +1,5 @@
 import { ref } from "vue";
+import axios from "axios";
 import { defineStore } from "pinia";
 import {
   adminCustomerListAPI,
@@ -116,10 +117,32 @@ export const useAdminStore = defineStore(
         });
       }
     };
-    //导出excel
+    //导出excel;
     const exportExcel = async () => {
       await exportExcelAPI();
     };
+
+    //原生ajax请求
+    // const exportExcel = async () => {
+    //   let res = await axios({
+    //     url: "http://localhost:8080/admin/exportCustomer",
+    //     // url: "http://localhost:8080/out/outexcel",
+    //     method: "get",
+    //     responseType: "blob",
+    //   });
+    //   let blob = new Blob([res.data], {
+    //     type: "application/vnd.ms-excel",
+    //   });
+    //   let url = window.URL.createObjectURL(blob);
+    //   let link = document.createElement("a");
+    //   link.style.display = "none";
+    //   link.href = url;
+    //   link.setAttribute("download", "客户信息.xlsx");
+    //   document.body.appendChild(link);
+    //   link.click();
+    //   document.body.removeChild(link);
+    // };
+
     return {
       customerListInfo,
       customerList,

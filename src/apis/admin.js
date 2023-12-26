@@ -57,5 +57,18 @@ export const exportExcelAPI = () => {
     url: "/admin/exportCustomer",
     method: "get",
     responseType: "blob",
+  }).then((res) => {
+    let blob = new Blob([res], {
+      //type: "application/vnd.ms-excel",
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    });
+    let url = window.URL.createObjectURL(blob);
+    let link = document.createElement("a");
+    link.style.display = "none";
+    link.href = url;
+    link.setAttribute("download", "客户信息.xlsx");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   });
 };
