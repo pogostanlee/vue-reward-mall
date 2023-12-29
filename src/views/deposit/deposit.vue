@@ -1,6 +1,6 @@
 <script setup>
 import { Delete } from "@element-plus/icons-vue";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useDepositStore } from "@/stores/depositStore";
 import { debounce } from "lodash";
 const depositStore = useDepositStore();
@@ -75,6 +75,13 @@ const deleteByid = (row) => {
 const drawerFrom = ref({});
 const drawerRef = ref();
 const drawer = ref(false);
+//设置计算属性计算月份之间的差值
+const monthDiff = computed(() => {
+  const date1 = new Date(drawerFrom.value.depositDate);
+  const date2 = new Date(drawerFrom.value.maturityDate);
+  const months = (date2.getFullYear() - date1.getFullYear()) * 12;
+  return months + date2.getMonth() - date1.getMonth();
+});
 //校验规则
 const validateDates = (rule, value, callback) => {
   if (
@@ -89,9 +96,22 @@ const validateDates = (rule, value, callback) => {
 
 //校验
 const drawerrules = {
-  customerIdNumber: [{ validator: validateIdNumber, trigger: "blur" }],
-  depositDate: [{ validator: validateDates, trigger: "blur" }],
-  maturityDate: [{ validator: validateDates, trigger: "blur" }],
+  customerIdNumber: [
+    { validator: validateIdNumber, trigger: "blur" },
+    { required: true, trigger: "blur" },
+  ],
+  depositDate: [
+    { validator: validateDates, trigger: "blur" },
+    { required: true, message: "请输入日期", trigger: "blur" },
+  ],
+  maturityDate: [
+    { validator: validateDates, trigger: "blur" },
+    { required: true, message: "请输入日期", trigger: "blur" },
+  ],
+  depositAccount: [
+    { required: true, message: "请输入存款账号", trigger: "blur" },
+  ],
+  deposit: [{ required: true, message: "请输入存款金额", trigger: "blur" }],
 };
 //抽屉页提交与清空
 function cancelClick() {
@@ -105,6 +125,8 @@ const confirmClick = debounce(() => {
   drawerRef.value.validate(async (valid) => {
     if (valid) {
       drawer.value = false;
+      //将monthDiff添加到drawerFrom中
+      drawerFrom.value.monthDiff = monthDiff.value;
       //增加新存款
       await depositStore.addDeposit(drawerFrom.value);
       drawerFrom.value = {};
@@ -141,7 +163,16 @@ const confirmClick = debounce(() => {
     <el-table-column prop="depositDate" label="起始日期" width="150" />
     <el-table-column prop="maturityDate" label="到期日期" width="150" />
     <el-table-column prop="getPoints" label="获得积分" width="60" />
-    <el-table-column prop="activity" label="活动内容" width="80" />
+    <el-table-column
+      prop="isNewDeposit"
+      label="是否新增"
+      :formatter="(row) => (row.isNewDeposit ? '新增' : '否')"
+      width="80"
+    />
+    <el-table-column prop="receptionist" label="揽存人" width="80" />
+    <el-table-column prop="depositAccount" label="存款账户" width="180" />
+    <el-table-column prop="subDepositAccount" label="子账户" width="180" />
+    <el-table-column prop="monthDiff" label="存款期限（月）" width="80" />
     <el-table-column fixed="right" label="操作" width="60">
       <template #default="{ row }">
         <el-button
@@ -184,8 +215,12 @@ const confirmClick = debounce(() => {
           :rules="drawerrules"
           ref="drawerRef"
         >
-          <el-form-item label="姓名">
-            <el-input v-model="drawerFrom.name" placeholder="姓名" clearable />
+          <el-form-item label="揽存人">
+            <el-input
+              v-model="drawerFrom.Receptionist"
+              placeholder="姓揽人姓名"
+              clearable
+            />
           </el-form-item>
 
           <el-form-item label="身份证号码" prop="customerIdNumber">
@@ -196,7 +231,7 @@ const confirmClick = debounce(() => {
             />
           </el-form-item>
 
-          <el-form-item label="存款金额(精确到元)">
+          <el-form-item label="存款金额(精确到元)" prop="deposit">
             <el-input
               v-model.number="drawerFrom.deposit"
               :formatter="
@@ -207,8 +242,32 @@ const confirmClick = debounce(() => {
               clearable
             />
           </el-form-item>
+          <!-- 是否为新增存款 -->
+          <el-form-item label="是否为新增存款 ">
+            <el-switch
+              v-model="drawerFrom.isNewDeposit"
+              inline-prompt
+              active-text="是"
+              inactive-text="否"
+              active-value="1"
+              inactive-value="0"
+            />
+          </el-form-item>
+          <el-form-item label="存款账号" prop="depositAccount">
+            <el-input
+              v-model="drawerFrom.depositAccount"
+              placeholder="存款账号"
+              clearable
+            />
+          </el-form-item>
+          <el-form-item label="存款子账号">
+            <el-input
+              v-model="drawerFrom.subDepositAccount"
+              placeholder="存款子账号"
+              clearable
+            />
+          </el-form-item>
           <!-- 时间组件 -->
-
           <div class="demo-date-picker">
             <el-form-item prop="depositDate" label="存款日期">
               <div class="block">
@@ -237,6 +296,11 @@ const confirmClick = debounce(() => {
               </div>
             </el-form-item>
           </div>
+          <!-- 设置为空时不显示 -->
+          <p v-show="monthDiff">
+            存款期限为<span style="color: red">{{ monthDiff }}</span
+            >月
+          </p>
 
           <el-form-item>
             <el-button @click="cancelClick">取消</el-button>
@@ -267,7 +331,6 @@ const confirmClick = debounce(() => {
 
 .demo-date-picker .block {
   padding: 30px 0;
-  /* text-align: center; */
   border-right: solid 1px var(--el-border-color);
   flex: 1;
 }

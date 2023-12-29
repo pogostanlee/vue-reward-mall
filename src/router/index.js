@@ -42,7 +42,7 @@ const router = createRouter({
       path: "/layout/:number",
       name: "layout",
       component: LayoutVue,
-      redirect: "/customer",
+      // redirect: "/customer",
       children: [
         {
           path: "/user/resetPassword",

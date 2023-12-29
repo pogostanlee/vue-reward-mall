@@ -126,6 +126,15 @@ const handleCommand = (command) => {
           <el-icon>
             <Money />
           </el-icon>
+          <span>存款管理</span>
+        </el-menu-item>
+        <el-menu-item
+          index="/adminProduct"
+          v-if="userStore.userInfo.isAdmin == 1"
+        >
+          <el-icon>
+            <Money />
+          </el-icon>
           <span>礼品管理</span>
         </el-menu-item>
         <el-menu-item
