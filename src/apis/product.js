@@ -43,3 +43,11 @@ export const getInventoryAPI = (params) => {
   }
   return request.post("/product/productInventory", queryparams);
 };
+//获取入库记录
+export const getInboundAPI = (params) => {
+  const queryparams = new URLSearchParams();
+  for (let key in params) {
+    queryparams.append(key, params[key]);
+  }
+  return request.post("/product/inbound", queryparams);
+};

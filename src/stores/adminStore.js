@@ -1,5 +1,4 @@
 import { ref } from "vue";
-import axios from "axios";
 import { defineStore } from "pinia";
 import {
   adminCustomerListAPI,
@@ -10,6 +9,8 @@ import {
   adminGetInventoryAPI,
   addInventoryAPI,
   exportExcelAPI,
+  adminGetDepositListAPI,
+  exportDepositExcelAPI,
 } from "@/apis/admin";
 export const useAdminStore = defineStore(
   "admin",
@@ -22,6 +23,8 @@ export const useAdminStore = defineStore(
     const allProductsListInfo = ref({});
     //定义所有库存列表数据的lsit
     const allInventoryInfo = ref({});
+    //定义存款列表数据的lsit
+    const allDepositInfo = ref({});
     //获取客户信息列表
     const customerList = async (formData) => {
       let res = await adminCustomerListAPI(formData);
@@ -117,31 +120,39 @@ export const useAdminStore = defineStore(
         });
       }
     };
-    //导出excel;
+    // 导出excel;
     const exportExcel = async () => {
       await exportExcelAPI();
     };
 
-    //原生ajax请求
-    // const exportExcel = async () => {
-    //   let res = await axios({
-    //     url: "http://localhost:8080/admin/exportCustomer",
-    //     // url: "http://localhost:8080/out/outexcel",
-    //     method: "get",
-    //     responseType: "blob",
-    //   });
-    //   let blob = new Blob([res.data], {
-    //     type: "application/vnd.ms-excel",
-    //   });
-    //   let url = window.URL.createObjectURL(blob);
-    //   let link = document.createElement("a");
-    //   link.style.display = "none";
-    //   link.href = url;
-    //   link.setAttribute("download", "客户信息.xlsx");
-    //   document.body.appendChild(link);
-    //   link.click();
-    //   document.body.removeChild(link);
-    // };
+    //获取存款列表
+    const getAllDepositList = async (formData) => {
+      let res = await adminGetDepositListAPI(formData);
+      allDepositInfo.value = res;
+      if (res.total === 0) {
+        ElMessage({
+          message: "未查到信息，请核对查询条件",
+          type: "warning",
+        });
+      }
+    };
+    //导出存款列表excel
+    const AllDepositListEX = async (formData) => {
+      let res = await exportDepositExcelAPI(formData);
+      console.log(res);
+      let blob = new Blob([res], {
+        //type: "application/vnd.ms-excel",
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+      let url = window.URL.createObjectURL(blob);
+      let link = document.createElement("a");
+      link.style.display = "none";
+      link.href = url;
+      link.setAttribute("download", "存款信息.xlsx");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
 
     return {
       customerListInfo,
@@ -156,6 +167,9 @@ export const useAdminStore = defineStore(
       allInventoryInfo,
       addInventory,
       exportExcel,
+      allDepositInfo,
+      getAllDepositList,
+      AllDepositListEX,
     };
   },
   { persist: true }

@@ -6,7 +6,6 @@ const defaultForm = {
   idNumber: "",
   name: "",
   branchId: "",
-  manager: "",
   startNumber: "",
   endNumber: "",
   currentPage: "1",
@@ -121,9 +120,6 @@ onMounted(async () => {
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="销售经理">
-        <el-input v-model="form.manager" placeholder="销售经理" clearable />
-      </el-form-item>
       <el-form-item label="存款金额区间" prop="numberRange">
         <el-input
           v-model.number="form.startNumber"
@@ -154,7 +150,6 @@ onMounted(async () => {
   <el-table :data="tableData" height="500" border stripe style="width: 100%">
     <el-table-column prop="name" label="姓名" width="120" />
     <el-table-column prop="idNumber" label="身份证" width="180" />
-    <el-table-column prop="manager" label="客户经理" width="120" />
     <el-table-column prop="totalDeposit" label="存款数" width="150" />
     <el-table-column prop="points" label="积分" width="80" />
     <el-table-column prop="branchId" label="所属支行" width="120" />

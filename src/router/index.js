@@ -17,12 +17,16 @@ import Product from "@/views/product/product.vue";
 import ProductDetail from "@/views/product/productDetail.vue";
 //商品库存页面
 import ProductInventory from "@/views/product/productInventory.vue";
+//商品入库记录详情页
+import ProductRecord from "@/views/product/productRecord.vue";
 //后台客户信息页面
 import AdminCustomer from "@/views/admin/adminCustomer.vue";
 //后台礼品管理页面
 import AdminProduct from "@/views/admin/adminProduct.vue";
 //后台礼品库存页面
 import AdminInventory from "@/views/admin/adminInventory.vue";
+//后台存款详情页面
+import AdminDeposit from "@/views/admin/adminDeposit.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -75,6 +79,11 @@ const router = createRouter({
           component: ProductDetail,
         },
         {
+          path: "/productRecord",
+          name: "productRecord",
+          component: ProductRecord,
+        },
+        {
           path: "/productInventory",
           name: "productInventory",
           component: ProductInventory,
@@ -93,6 +102,11 @@ const router = createRouter({
           path: "/adminInventory",
           name: "adminInventory",
           component: AdminInventory,
+        },
+        {
+          path: "/adminDeposit",
+          name: "adminDeposit",
+          component: AdminDeposit,
         },
       ],
     },

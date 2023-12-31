@@ -103,6 +103,12 @@ const handleCommand = (command) => {
             </el-icon>
             <span>兑换记录</span>
           </el-menu-item>
+          <el-menu-item index="/productRecord">
+            <el-icon>
+              <Crop />
+            </el-icon>
+            <span>入库记录</span>
+          </el-menu-item>
           <el-menu-item index="/productInventory">
             <el-icon>
               <Crop />
@@ -112,7 +118,7 @@ const handleCommand = (command) => {
         </el-sub-menu>
         <el-menu-item
           index="/adminCustomer"
-          v-if="userStore.userInfo.isAdmin == 1"
+          v-if="userStore.userInfo.isAdmin == 0"
         >
           <el-icon>
             <Money />
@@ -120,8 +126,8 @@ const handleCommand = (command) => {
           <span>查询用户详情</span>
         </el-menu-item>
         <el-menu-item
-          index="/adminProduct"
-          v-if="userStore.userInfo.isAdmin == 1"
+          index="/adminDeposit"
+          v-if="userStore.userInfo.isAdmin == 0"
         >
           <el-icon>
             <Money />
@@ -130,7 +136,7 @@ const handleCommand = (command) => {
         </el-menu-item>
         <el-menu-item
           index="/adminProduct"
-          v-if="userStore.userInfo.isAdmin == 1"
+          v-if="userStore.userInfo.isAdmin == 0"
         >
           <el-icon>
             <Money />
@@ -139,7 +145,7 @@ const handleCommand = (command) => {
         </el-menu-item>
         <el-menu-item
           index="/adminInventory"
-          v-if="userStore.userInfo.isAdmin == 1"
+          v-if="userStore.userInfo.isAdmin == 0"
         >
           <el-icon>
             <Money />

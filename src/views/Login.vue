@@ -38,6 +38,7 @@ const userlogin = async () => {
             placeholder="请输入密码"
             :prefix-icon="Lock"
             v-model="formData.password"
+            @keyup.enter="userlogin"
           ></el-input>
         </el-form-item>
 

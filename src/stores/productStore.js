@@ -7,6 +7,7 @@ import {
   getExchangeListAPI,
   deleteIdAPI,
   getInventoryAPI,
+  getInboundAPI,
 } from "@/apis/product";
 import router from "@/router";
 export const useProductStore = defineStore(
@@ -20,6 +21,8 @@ export const useProductStore = defineStore(
     const exchangeList = ref({});
     //定义库存数据
     const inventory = ref({});
+    //定义入库记录数据
+    const inboundInfo = ref({});
     //根据身份证查询客户信息
     const getCustomer = async (formData) => {
       let res = await getcustomerAPI(formData);
@@ -97,6 +100,18 @@ export const useProductStore = defineStore(
         });
       }
     };
+    //获取入库情况
+    const getInbound = async (formData) => {
+      let res = await getInboundAPI(formData);
+      inboundInfo.value = res;
+      //状态判断
+      if (res.total === 0) {
+        ElMessage({
+          message: "未查询到记录",
+          type: "warning",
+        });
+      }
+    };
     return {
       customerInfo,
       getCustomer,
@@ -108,6 +123,8 @@ export const useProductStore = defineStore(
       deleteId,
       inventory,
       getInventory,
+      getInbound,
+      inboundInfo,
     };
   },
   {

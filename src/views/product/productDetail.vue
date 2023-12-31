@@ -8,11 +8,11 @@ const productMap = new Map();
 //定义查询条件
 const formInline = ref({
   idNumber: "",
+  productId: "",
+  date: "",
   currentPage: "1",
   pageSize: "10",
 });
-//定义dom
-const idNumberRef = ref();
 //定义表格数据
 const tableData = ref();
 //身份证校验
@@ -40,13 +40,9 @@ const handleCurrentChange = async (num) => {
   tableData.value = productStore.exchangeList.items;
 };
 //查询
-const onSubmit = () => {
-  idNumberRef.value.validate(async (valid) => {
-    if (valid) {
-      await productStore.getExchangeList(formInline.value);
-      tableData.value = productStore.exchangeList.items;
-    }
-  });
+const onSubmit = async () => {
+  await productStore.getExchangeList(formInline.value);
+  tableData.value = productStore.exchangeList.items;
 };
 //删除存款记录
 const deleteByid = (row) => {
@@ -85,7 +81,6 @@ onMounted(() => {
     :model="formInline"
     class="demo-form-inline"
     :rules="rules"
-    ref="idNumberRef"
   >
     <el-form-item label="输入客户身份证号码" prop="idNumber">
       <el-input
@@ -94,8 +89,33 @@ onMounted(() => {
         clearable
       />
     </el-form-item>
+    <el-form-item label="选择查询礼品">
+      <el-select
+        v-model="formInline.productId"
+        placeholder="下拉选择礼品"
+        clearable
+      >
+        <el-option
+          v-for="item in productStore.productList"
+          :key="item.id"
+          :label="item.name"
+          :value="item.id"
+        />
+      </el-select>
+    </el-form-item>
+    <el-form-item label="选择查询日期">
+      <el-date-picker
+        v-model="formInline.date"
+        type="daterange"
+        range-separator="To"
+        start-placeholder="开始日期"
+        end-placeholder="结束日期"
+        format="YYYY/MM/DD"
+        value-format="YYYY-MM-DD"
+      />
+    </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="onSubmit">确定</el-button>
+      <el-button type="primary" @click="onSubmit">查询</el-button>
     </el-form-item>
   </el-form>
 

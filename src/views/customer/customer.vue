@@ -6,7 +6,6 @@ const defaultForm = {
   idNumber: "",
   name: "",
   phone: "",
-  manager: "",
   startNumber: "",
   endNumber: "",
   currentPage: "1",
@@ -124,9 +123,6 @@ function confirmClick() {
       <el-form-item label="电话" prop="phone">
         <el-input v-model="form.phone" placeholder="电话" clearable />
       </el-form-item>
-      <el-form-item label="销售经理">
-        <el-input v-model="form.manager" placeholder="销售经理" clearable />
-      </el-form-item>
       <el-form-item label="存款金额区间" prop="numberRange">
         <el-input
           v-model.number="form.startNumber"
@@ -157,7 +153,6 @@ function confirmClick() {
   <el-table :data="tableData" height="500" border stripe style="width: 100%">
     <el-table-column prop="name" label="姓名" width="120" />
     <el-table-column prop="idNumber" label="身份证" width="180" />
-    <el-table-column prop="manager" label="客户经理" width="120" />
     <el-table-column prop="totalDeposit" label="存款数" width="150" />
     <el-table-column prop="points" label="积分" width="80" />
     <el-table-column prop="phone" label="电话" width="120" />
@@ -208,13 +203,6 @@ function confirmClick() {
             <el-input
               v-model="drawerFrom.idNumber"
               placeholder="身份证号码"
-              clearable
-            />
-          </el-form-item>
-          <el-form-item label="客户经理">
-            <el-input
-              v-model="drawerFrom.manager"
-              placeholder="客户经理"
               clearable
             />
           </el-form-item>

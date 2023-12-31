@@ -72,3 +72,30 @@ export const exportExcelAPI = () => {
     document.body.removeChild(link);
   });
 };
+
+//获取所有存款信息
+export const adminGetDepositListAPI = (params) => {
+  const queryparams = new URLSearchParams();
+  for (let key in params) {
+    queryparams.append(key, params[key]);
+  }
+  return request.post("/admin/getDeposit", queryparams);
+};
+// 导出存款列表excel
+// export const exportDepositExcelAPI = (params) => {
+//   const queryparams = new URLSearchParams();
+//   for (let key in params) {
+//     queryparams.append(key, params[key]);
+//   }
+//   return request.post("/admin/exportDeposit", queryparams, {
+//     responseType: "blob",
+//   });
+// };
+export const exportDepositExcelAPI = (params) => {
+  return request({
+    url: "/admin/exportDeposit",
+    method: "post",
+    data: params,
+    responseType: "blob",
+  });
+};
