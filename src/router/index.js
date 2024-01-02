@@ -27,6 +27,10 @@ import AdminProduct from "@/views/admin/adminProduct.vue";
 import AdminInventory from "@/views/admin/adminInventory.vue";
 //后台存款详情页面
 import AdminDeposit from "@/views/admin/adminDeposit.vue";
+//后台入库记录表
+import AdminInbound from "@/views/admin/adminInbound.vue";
+//后台上交库存记录表
+import AdminRebound from "@/views/admin/adminRebound.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -107,6 +111,16 @@ const router = createRouter({
           path: "/adminDeposit",
           name: "adminDeposit",
           component: AdminDeposit,
+        },
+        {
+          path: "/adminInbound",
+          name: "adminInbound",
+          component: AdminInbound,
+        },
+        {
+          path: "/adminRebound",
+          name: "adminRebound",
+          component: AdminRebound,
         },
       ],
     },

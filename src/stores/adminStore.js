@@ -11,6 +11,7 @@ import {
   exportExcelAPI,
   adminGetDepositListAPI,
   exportDepositExcelAPI,
+  adminGetInboundRecordAPI,
 } from "@/apis/admin";
 export const useAdminStore = defineStore(
   "admin",
@@ -25,6 +26,8 @@ export const useAdminStore = defineStore(
     const allInventoryInfo = ref({});
     //定义存款列表数据的lsit
     const allDepositInfo = ref({});
+    //定义入库列表信息
+    const inboundRecordInfo = ref({});
     //获取客户信息列表
     const customerList = async (formData) => {
       let res = await adminCustomerListAPI(formData);
@@ -153,7 +156,17 @@ export const useAdminStore = defineStore(
       link.click();
       document.body.removeChild(link);
     };
-
+    //获取入库列表
+    const getInboundRecord = async (formData) => {
+      let res = await adminGetInboundRecordAPI(formData);
+      inboundRecordInfo.value = res;
+      if (res.total === 0) {
+        ElMessage({
+          message: "未查到信息，请核对查询条件",
+          type: "warning",
+        });
+      }
+    };
     return {
       customerListInfo,
       customerList,
@@ -170,6 +183,8 @@ export const useAdminStore = defineStore(
       allDepositInfo,
       getAllDepositList,
       AllDepositListEX,
+      inboundRecordInfo,
+      getInboundRecord,
     };
   },
   { persist: true }

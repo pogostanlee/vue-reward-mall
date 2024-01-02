@@ -20,13 +20,13 @@ const onSubmit = async () => {
 };
 //分页参数改变方法
 const handleSizeChange = async (sizeNumber) => {
-  formInline.value.pageSize = sizeNumber;
-  formInline.value.currentPage = 1;
+  form.value.pageSize = sizeNumber;
+  form.value.currentPage = 1;
   await productStore.getInventory(form.value);
   tableData.value = productStore.inventory.items;
 };
 const handleCurrentChange = async (num) => {
-  formInline.value.currentPage = num;
+  form.value.currentPage = num;
   await productStore.getInventory(form.value);
   tableData.value = productStore.inventory.items;
 };

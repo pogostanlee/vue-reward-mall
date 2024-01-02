@@ -132,11 +132,13 @@ const addsubmit = async () => {
       width="160"
       :formatter="(row) => getName(row.productId)"
     />
-    <el-table-column prop="quantity" label="礼品库存" width="160" />
     <el-table-column prop="total" label="礼品总量" width="160" />
+    <el-table-column prop="quantity" label="礼品库存" width="160" />
+    
+    <el-table-column prop="reback" label="退还总量" width="160" />
     <el-table-column
       prop="branchId"
-      label="礼品名称"
+      label="部门名称"
       width="160"
       :formatter="(row) => getNameById(row.branchId)"
     />

@@ -118,7 +118,7 @@ const handleCommand = (command) => {
         </el-sub-menu>
         <el-menu-item
           index="/adminCustomer"
-          v-if="userStore.userInfo.isAdmin == 0"
+          v-if="userStore.userInfo.isAdmin == 1"
         >
           <el-icon>
             <Money />
@@ -127,31 +127,50 @@ const handleCommand = (command) => {
         </el-menu-item>
         <el-menu-item
           index="/adminDeposit"
-          v-if="userStore.userInfo.isAdmin == 0"
+          v-if="userStore.userInfo.isAdmin == 1"
         >
           <el-icon>
             <Money />
           </el-icon>
-          <span>存款管理</span>
+          <span>存款记录管理</span>
         </el-menu-item>
         <el-menu-item
           index="/adminProduct"
-          v-if="userStore.userInfo.isAdmin == 0"
+          v-if="userStore.userInfo.isAdmin == 1"
         >
           <el-icon>
             <Money />
           </el-icon>
-          <span>礼品管理</span>
+          <span>礼品上下架管理</span>
         </el-menu-item>
-        <el-menu-item
-          index="/adminInventory"
-          v-if="userStore.userInfo.isAdmin == 0"
-        >
-          <el-icon>
-            <Money />
-          </el-icon>
-          <span>礼品库存</span>
-        </el-menu-item>
+        <el-sub-menu v-if="userStore.userInfo.isAdmin == 1">
+          <template #title>
+            <el-icon>
+              <Crop />
+            </el-icon>
+            <span>库存管理</span>
+          </template>
+
+          <el-menu-item index="/adminInventory">
+            <el-icon>
+              <Money />
+            </el-icon>
+            <span>库存详情</span>
+          </el-menu-item>
+
+          <el-menu-item index="/adminInbound">
+            <el-icon>
+              <Money />
+            </el-icon>
+            <span>分发记录</span>
+          </el-menu-item>
+          <el-menu-item index="/adminRebound">
+            <el-icon>
+              <Money />
+            </el-icon>
+            <span>上交库存记录</span>
+          </el-menu-item>
+        </el-sub-menu>
       </el-menu>
     </el-aside>
     <!-- 右侧主区域 -->

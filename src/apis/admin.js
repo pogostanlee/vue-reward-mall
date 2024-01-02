@@ -82,15 +82,6 @@ export const adminGetDepositListAPI = (params) => {
   return request.post("/admin/getDeposit", queryparams);
 };
 // 导出存款列表excel
-// export const exportDepositExcelAPI = (params) => {
-//   const queryparams = new URLSearchParams();
-//   for (let key in params) {
-//     queryparams.append(key, params[key]);
-//   }
-//   return request.post("/admin/exportDeposit", queryparams, {
-//     responseType: "blob",
-//   });
-// };
 export const exportDepositExcelAPI = (params) => {
   return request({
     url: "/admin/exportDeposit",
@@ -98,4 +89,12 @@ export const exportDepositExcelAPI = (params) => {
     data: params,
     responseType: "blob",
   });
+};
+//获取入库列表
+export const adminGetInboundRecordAPI = (params) => {
+  const queryparams = new URLSearchParams();
+  for (let key in params) {
+    queryparams.append(key, params[key]);
+  }
+  return request.post("/admin/inbound", queryparams);
 };
