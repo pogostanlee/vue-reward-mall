@@ -12,6 +12,8 @@ import {
   adminGetDepositListAPI,
   exportDepositExcelAPI,
   adminGetInboundRecordAPI,
+  adminGetReboundRecordAPI,
+  adminAddReboundAPI,
 } from "@/apis/admin";
 export const useAdminStore = defineStore(
   "admin",
@@ -28,6 +30,8 @@ export const useAdminStore = defineStore(
     const allDepositInfo = ref({});
     //定义入库列表信息
     const inboundRecordInfo = ref({});
+    //定义上交记录列表信息
+    const reboundRecordInfo = ref({});
     //获取客户信息列表
     const customerList = async (formData) => {
       let res = await adminCustomerListAPI(formData);
@@ -167,6 +171,36 @@ export const useAdminStore = defineStore(
         });
       }
     };
+    //获取上交信息列表
+    const getReboundRecord = async (formData) => {
+      let res = await adminGetReboundRecordAPI(formData);
+      reboundRecordInfo.value = res;
+      if (res.total === 0) {
+        ElMessage({
+          message: "未查到信息，请核对查询条件",
+          type: "warning",
+        });
+      }
+    };
+
+    //提交上交记录
+    const addRebound = async (data) => {
+      let res = await adminAddReboundAPI(data);
+      //状态判断
+      if (res.code === 1) {
+        ElMessage({
+          message: res.message,
+          type: "warning",
+        });
+      }
+      if (res.code === 0) {
+        ElMessage({
+          message: res.message,
+          type: "success",
+        });
+      }
+    };
+
     return {
       customerListInfo,
       customerList,
@@ -185,6 +219,9 @@ export const useAdminStore = defineStore(
       AllDepositListEX,
       inboundRecordInfo,
       getInboundRecord,
+      reboundRecordInfo,
+      getReboundRecord,
+      addRebound,
     };
   },
   { persist: true }

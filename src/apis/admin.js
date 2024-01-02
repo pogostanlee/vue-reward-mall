@@ -83,10 +83,11 @@ export const adminGetDepositListAPI = (params) => {
 };
 // 导出存款列表excel
 export const exportDepositExcelAPI = (params) => {
-  return request({
-    url: "/admin/exportDeposit",
-    method: "post",
-    data: params,
+  const queryparams = new URLSearchParams();
+  for (let key in params) {
+    queryparams.append(key, params[key]);
+  }
+  return request.post("/admin/exportDeposit", queryparams, {
     responseType: "blob",
   });
 };
@@ -97,4 +98,20 @@ export const adminGetInboundRecordAPI = (params) => {
     queryparams.append(key, params[key]);
   }
   return request.post("/admin/inbound", queryparams);
+};
+//获取上交记录表
+export const adminGetReboundRecordAPI = (params) => {
+  const queryparams = new URLSearchParams();
+  for (let key in params) {
+    queryparams.append(key, params[key]);
+  }
+  return request.post("/admin/rebound", queryparams);
+};
+//提交上交库存
+export const adminAddReboundAPI = (params) => {
+  const queryparams = new URLSearchParams();
+  for (let key in params) {
+    queryparams.append(key, params[key]);
+  }
+  return request.post("/admin/addRebound", queryparams);
 };

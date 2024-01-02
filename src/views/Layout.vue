@@ -162,7 +162,7 @@ const handleCommand = (command) => {
             <el-icon>
               <Money />
             </el-icon>
-            <span>分发记录</span>
+            <span>入库记录</span>
           </el-menu-item>
           <el-menu-item index="/adminRebound">
             <el-icon>

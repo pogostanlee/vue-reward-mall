@@ -80,6 +80,11 @@ const handleCurrentChange = async (num) => {
   await adminStore.getAllDepositList(formInline.value);
   listInfo.value = adminStore.allDepositInfo.items;
 };
+//定义下拉框map
+const getNameById = (id) => {
+  //通过id查询支行名称
+  return branchMap.get(id);
+};
 onMounted(async () => {
   //获取支行列表
   await adminStore.branchList();
@@ -186,6 +191,7 @@ onMounted(async () => {
     <el-table-column prop="name" label="姓名" width="60" />
     <el-table-column prop="customerIdNumber" label="身份证" width="180" />
     <el-table-column prop="deposit" label="存款金额" width="100" />
+    <el-table-column prop="newDeposit" label="新增金额" width="100" />
     <el-table-column prop="depositDate" label="起始日期" width="150" />
     <el-table-column prop="maturityDate" label="到期日期" width="150" />
     <el-table-column prop="getPoints" label="获得积分" width="60" />
@@ -199,6 +205,12 @@ onMounted(async () => {
     <el-table-column prop="depositAccount" label="存款账户" width="180" />
     <el-table-column prop="subDepositAccount" label="子账户" width="180" />
     <el-table-column prop="monthDiff" label="存款期限（月）" width="80" />
+    <el-table-column
+      prop="branchId"
+      label="部门名称"
+      width="160"
+      :formatter="(row) => getNameById(row.branchId)"
+    />
   </el-table>
   <!-- 分页 -->
   <div class="demo-pagination-block">

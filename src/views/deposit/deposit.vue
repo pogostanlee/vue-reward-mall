@@ -76,6 +76,7 @@ const handleCurrentChange = async (num) => {
 };
 //删除存款记录
 const deleteByid = (row) => {
+  console.log(row);
   ElMessageBox.confirm("积分不足则无法删除此条数据", "警告", {
     confirmButtonText: "确定",
     cancelButtonText: "取消",
@@ -241,6 +242,7 @@ onMounted(async () => {
     <el-table-column prop="name" label="姓名" width="60" />
     <el-table-column prop="customerIdNumber" label="身份证" width="180" />
     <el-table-column prop="deposit" label="存款金额" width="100" />
+    <el-table-column prop="newDeposit" label="新增金额" width="100" />
     <el-table-column prop="depositDate" label="起始日期" width="150" />
     <el-table-column prop="maturityDate" label="到期日期" width="150" />
     <el-table-column prop="getPoints" label="获得积分" width="60" />
@@ -332,6 +334,17 @@ onMounted(async () => {
               inactive-text="否"
               active-value="1"
               inactive-value="0"
+            />
+          </el-form-item>
+          <el-form-item label="存量新增" prop="newDeposit">
+            <el-input
+              v-model.number="drawerFrom.newDeposit"
+              :formatter="
+                (value) => `¥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+              "
+              :parser="(value) => value.replace(/\¥\s?|(,*)/g, '')"
+              placeholder="新增金额(精确到元)"
+              clearable
             />
           </el-form-item>
           <el-form-item label="存款账号" prop="depositAccount">
