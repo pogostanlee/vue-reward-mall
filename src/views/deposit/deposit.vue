@@ -76,7 +76,6 @@ const handleCurrentChange = async (num) => {
 };
 //删除存款记录
 const deleteByid = (row) => {
-  console.log(row);
   ElMessageBox.confirm("积分不足则无法删除此条数据", "警告", {
     confirmButtonText: "确定",
     cancelButtonText: "取消",

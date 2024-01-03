@@ -55,6 +55,15 @@ export const addInventoryAPI = (params) => {
   }
   return request.post("/admin/addInventory", queryparams);
 };
+//删除入库记录表
+export const deleteInboundByIdAPI = (params) => {
+  const queryparams = new URLSearchParams();
+  for (let key in params) {
+    queryparams.append(key, params[key]);
+  }
+  return request.post("/admin/deleteInboundById", queryparams);
+};
+
 //导出excel
 export const exportExcelAPI = () => {
   return request({

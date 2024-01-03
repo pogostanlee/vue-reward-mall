@@ -9,6 +9,7 @@ import {
   addProductAPI,
   adminGetInventoryAPI,
   addInventoryAPI,
+  deleteInboundByIdAPI,
   exportExcelAPI,
   adminGetDepositListAPI,
   exportDepositExcelAPI,
@@ -135,6 +136,16 @@ export const useAdminStore = defineStore(
         });
       }
     };
+    //删除入库记录
+    const deleteInboundById = async (row) => {
+      let res = await deleteInboundByIdAPI(row);
+      if (res.code === 1) {
+        ElMessage({
+          message: res.message,
+          type: "warning",
+        });
+      }
+    };
     // 导出excel;
     const exportExcel = async () => {
       await exportExcelAPI();
@@ -223,6 +234,7 @@ export const useAdminStore = defineStore(
       getInventory,
       allInventoryInfo,
       addInventory,
+      deleteInboundById,
       exportExcel,
       allDepositInfo,
       getAllDepositList,

@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useAdminStore } from "@/stores/adminStore";
+import { Delete } from "@element-plus/icons-vue";
 const customerStore = useAdminStore();
 const form = ref({
   productId: "",
@@ -39,6 +40,24 @@ const getNameById = (id) => {
 const getName = (id) => {
   //通过id查询商品名称
   return productMap.get(id);
+};
+//删除存款记录
+const deleteByid = (row) => {
+  ElMessageBox.confirm("库存已被兑换则无法删除此条数据", "警告", {
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning",
+  })
+    .then(async () => {
+      await customerStore.deleteInboundById(row);
+      onSubmit();
+    })
+    .catch(() => {
+      ElMessage({
+        type: "info",
+        message: "用户取消",
+      });
+    });
 };
 //页面加载调用
 onMounted(async () => {
@@ -124,6 +143,16 @@ const onSubmit = async () => {
       width="160"
       :formatter="(row) => getNameById(row.branchId)"
     />
+    <el-table-column fixed="right" label="操作" width="60">
+      <template #default="{ row }">
+        <el-button
+          type="danger"
+          :icon="Delete"
+          circle
+          @click="deleteByid(row)"
+        />
+      </template>
+    </el-table-column>
   </el-table>
   <!-- 分页 -->
   <div class="demo-pagination-block">
