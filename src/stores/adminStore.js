@@ -4,6 +4,7 @@ import {
   adminCustomerListAPI,
   adminBranchListAPI,
   allProductsListAPI,
+  allProductsListNoPageAPI,
   updateProductAPI,
   addProductAPI,
   adminGetInventoryAPI,
@@ -24,6 +25,8 @@ export const useAdminStore = defineStore(
     const branchListInfo = ref({});
     //定义所有商品列表数据的lsit
     const allProductsListInfo = ref({});
+    //定义所有商品列表数据的lsit
+    const allProductsListNoPageInfo = ref({});
     //定义所有库存列表数据的lsit
     const allInventoryInfo = ref({});
     //定义存款列表数据的lsit
@@ -64,6 +67,11 @@ export const useAdminStore = defineStore(
           type: "warning",
         });
       }
+    };
+    //获取所有商品list不带分页
+    const allPrpductsListNoPage = async () => {
+      let res = await allProductsListNoPageAPI();
+      allProductsListNoPageInfo.value = res.data;
     };
     //修改商品
     const updateProduct = async (data) => {
@@ -208,6 +216,8 @@ export const useAdminStore = defineStore(
       branchList,
       allProductsListInfo,
       allPrpductsList,
+      allPrpductsListNoPage,
+      allProductsListNoPageInfo,
       updateProduct,
       addProduct,
       getInventory,

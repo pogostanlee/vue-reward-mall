@@ -19,6 +19,10 @@ export const allProductsListAPI = (params) => {
   }
   return request.post("/admin/allProductsList", queryparams);
 };
+//获取所有商品信息
+export const allProductsListNoPageAPI = () => {
+  return request.post("/admin/allProductsListNoPage");
+};
 //修改商品信息
 export const updateProductAPI = (params) => {
   const queryparams = new URLSearchParams();

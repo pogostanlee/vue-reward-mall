@@ -48,8 +48,8 @@ onMounted(async () => {
     branchMap.set(item.number, item.name);
   });
   //获取商品列表
-  await customerStore.allPrpductsList(form.value);
-  customerStore.allProductsListInfo.items.forEach((item) => {
+  await customerStore.allPrpductsListNoPage();
+  customerStore.allProductsListNoPageInfo.forEach((item) => {
     productMap.set(item.id, item.name);
   });
 });
@@ -69,7 +69,7 @@ const onSubmit = async () => {
         clearable
       >
         <el-option
-          v-for="item in customerStore.allProductsListInfo.items"
+          v-for="item in customerStore.allProductsListNoPageInfo"
           :key="item.id"
           :label="item.name"
           :value="item.id"
