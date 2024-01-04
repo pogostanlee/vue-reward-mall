@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useAdminStore } from "@/stores/adminStore";
-import { debounce } from "lodash";
+import debounce from "lodash/debounce";
 const customerStore = useAdminStore();
 const dialogFormVisible = ref(false);
 const form = ref({

@@ -2,7 +2,7 @@
 import { Delete } from "@element-plus/icons-vue";
 import { ref, computed, onMounted } from "vue";
 import { useDepositStore } from "@/stores/depositStore";
-import { debounce } from "lodash";
+import debounce from "lodash/debounce";
 const depositStore = useDepositStore();
 //提交身份证数据
 const formInline = ref({
