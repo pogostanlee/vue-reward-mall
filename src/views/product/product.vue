@@ -2,6 +2,7 @@
 import { computed, onMounted, ref } from "vue";
 import { useProductStore } from "@/stores/productStore";
 import { ElMessage } from "element-plus";
+import { debounce } from "lodash";
 const productStore = useProductStore();
 const dialogFormVisible = ref(false);
 const formLabelWidth = "80px";
@@ -17,7 +18,7 @@ const handleChange = (number) => {
 };
 
 //添加商品提交
-const onSubmit = () => {
+const onSubmit = debounce(() => {
   //判断表单非空
   if (!form.value.region || !form.value.num) {
     ElMessage.error("请填写完整");
@@ -40,7 +41,7 @@ const onSubmit = () => {
   form.value.region = "";
   form.value.number = "";
   dialogFormVisible.value = false;
-};
+}, 1000);
 //删除商品
 const deleteRow = (row) => {
   const index = tableForm.value.findIndex((item) => item.id === row.id);
@@ -53,7 +54,7 @@ const totalPoints = computed(() => {
   }, 0);
 });
 //提交订单
-const submitProducts = async () => {
+const submitProducts = debounce(async () => {
   //如果总积分大于用户积分就提示积分不足
   if (totalPoints.value > productStore.customerInfo.points) {
     ElMessage.error("积分不足");
@@ -63,7 +64,7 @@ const submitProducts = async () => {
   productStore.customerInfo = {};
   //兑换礼品
   await productStore.exchange(tableForm.value);
-};
+}, 500);
 onMounted(() => {
   productStore.getProductList();
 });

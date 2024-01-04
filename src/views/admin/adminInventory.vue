@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useAdminStore } from "@/stores/adminStore";
+import { debounce } from "lodash";
 const customerStore = useAdminStore();
 const dialogFormVisible = ref(false);
 const form = ref({
@@ -76,7 +77,7 @@ const add = () => {
   dialogFormVisible.value = true;
 };
 //提交增加库存
-const addsubmit = async () => {
+const addsubmit = debounce(async () => {
   //判断表单非空
   if (
     !addform.value.branchId ||
@@ -92,7 +93,7 @@ const addsubmit = async () => {
   dialogFormVisible.value = false;
   //刷新页面
   onSubmit();
-};
+}, 500);
 </script>
 <template>
   <el-form :inline="true" :model="formInline" class="demo-form-inline">

@@ -1,7 +1,6 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useProductStore } from "@/stores/productStore";
-import router from "@/router";
 const productStore = useProductStore();
 const idNumberRef = ref();
 const formInline = ref({
