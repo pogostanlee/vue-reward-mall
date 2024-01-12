@@ -94,6 +94,11 @@ const addsubmit = debounce(async () => {
   //刷新页面
   onSubmit();
 }, 500);
+//导出库存记录
+const exExcelInven = async () => {
+  //调用导出库存记录接口
+  await customerStore.exExcelInven();
+};
 </script>
 <template>
   <el-form :inline="true" :model="formInline" class="demo-form-inline">
@@ -123,6 +128,9 @@ const addsubmit = debounce(async () => {
     </el-form-item>
     <el-form-item>
       <el-button type="success" @click="add">补充库存</el-button>
+    </el-form-item>
+    <el-form-item>
+      <el-button type="warning" @click="exExcelInven">全量导出</el-button>
     </el-form-item>
   </el-form>
   <!-- 表格 -->

@@ -128,3 +128,9 @@ export const adminAddReboundAPI = (params) => {
   }
   return request.post("/admin/addRebound", queryparams);
 };
+//导出库存记录
+export const exExcelInvenAPI = () => {
+  return request.post("/admin/exExcelInven", null, {
+    responseType: "blob",
+  });
+};

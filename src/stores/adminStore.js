@@ -16,6 +16,7 @@ import {
   adminGetInboundRecordAPI,
   adminGetReboundRecordAPI,
   adminAddReboundAPI,
+  exExcelInvenAPI,
 } from "@/apis/admin";
 export const useAdminStore = defineStore(
   "admin",
@@ -165,7 +166,6 @@ export const useAdminStore = defineStore(
     //导出存款列表excel
     const AllDepositListEX = async (formData) => {
       let res = await exportDepositExcelAPI(formData);
-      console.log(res);
       let blob = new Blob([res], {
         //type: "application/vnd.ms-excel",
         type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -219,6 +219,23 @@ export const useAdminStore = defineStore(
         });
       }
     };
+    //导出库存excel;
+    const exExcelInven = async (formData) => {
+      let res = await exExcelInvenAPI();
+      console.log(res);
+      let blob = new Blob([res], {
+        //type: "application/vnd.ms-excel",
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+      let url = window.URL.createObjectURL(blob);
+      let link = document.createElement("a");
+      link.style.display = "none";
+      link.href = url;
+      link.setAttribute("download", "库存信息.xlsx");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
 
     return {
       customerListInfo,
@@ -244,6 +261,7 @@ export const useAdminStore = defineStore(
       reboundRecordInfo,
       getReboundRecord,
       addRebound,
+      exExcelInven,
     };
   },
   { persist: true }
