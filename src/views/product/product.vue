@@ -112,7 +112,7 @@ onMounted(() => {
     </template>
   </el-dialog>
   <!-- 表格 -->
-  <el-table :data="tableForm" border style="width: 800px" height="500">
+  <el-table :data="tableForm" border style="width: 800px" height="250">
     <el-table-column prop="name" label="商品名称" />
     <el-table-column prop="num" label="数量" />
     <el-table-column prop="price" label="商品积分" />
